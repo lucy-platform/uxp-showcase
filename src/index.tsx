@@ -2,7 +2,7 @@ import * as React from "react";
 import { IContextProvider, registerUI, } from './uxp';
 import classNames from 'classnames';
 import './styles.scss';
-import { Modal, Button, Tooltip, Popover, FilterPanel, FormField, Label, Select, Input, ITrendSeries, ItemCard, useToast, Checkbox, FormFeedback, LinkWidgetContainer, ToggleFilter, Loading, NotificationBlock, PieChartComponent, TrendChartComponent, ProfileImage, TitleBar, DataList, DataGrid, WidgetWrapper, DatePicker, DateRangePicker, TimePicker, TimeRangePicker, DateTimePicker, ItemListCard, IconButton, SearchBox, AsyncButton, MapComponent } from "uxp/components";
+import { Modal, Button, Tooltip, Popover, FilterPanel, FormField, Label, Select, Input, ITrendSeries, ItemCard, useToast, Checkbox, FormFeedback, LinkWidgetContainer, ToggleFilter, Loading, NotificationBlock, PieChartComponent, TrendChartComponent, ProfileImage, TitleBar, DataList, DataGrid, WidgetWrapper, DatePicker, DateRangePicker, TimePicker, TimeRangePicker, DateTimePicker, ItemListCard, IconButton, SearchBox, AsyncButton, MapComponent, DynamicSelect } from "uxp/components";
 import { addDays, endOfMonth } from 'date-fns';
 
 interface IUxp_showcaseProps {
@@ -25,7 +25,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
     let [closeAfter, setCloseAfter] = React.useState<number>(2000);
     let [inputValue, setInputValue] = React.useState<string | null>("sample text");
     let [toggleFilterValue, setToggleFilterValue] = React.useState<string>("month");
-    let [selected, setSelected] = React.useState<string | null>("");
+    let [selected, setSelected] = React.useState<any>(null);
     let [buttonLoading, setButtonLoading] = React.useState<boolean>(false)
 
     // checkbox state
@@ -850,22 +850,23 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                     </div>
                 </div>
 
-                {/* <div className="showcase-section bgWhite" id="select">
+                <div className="showcase-section bgWhite" id="select">
                     <h4>Dynamic Select</h4>
                     <div className="example">
                         <FormField inline className="showcase-input" backgroundColor="white">
                             <Label>Select box ( default )</Label>
                             <DynamicSelect
-                                selected={selected}
+                                selected={selected?.label}
                                 options={getOptions}
                                 onChange={(value) => { setSelected(value); console.log(value) }}
                                 placeholder=" -- select --"
+                                labelField="label"
                             />
                         </FormField>
 
 
                     </div>
-                </div> */}
+                </div>
 
                 <div className="showcase-section bgWhite" id="checkbox">
                     <h4>Checkbox</h4>

@@ -1673,4 +1673,105 @@ declare module "uxp/components" {
      */
     export const SearchBox: React.FunctionComponent<ISearchBoxProps>
 
+
+    /**
+     * @export
+     */
+    type IDataFunction = (max: number, lastPageToken: string, args?: any) => Promise<{ items: Array<any>, pageToken: string }>
+
+    interface IOption {
+        /**
+         * option label
+         */
+        label: string,
+        /**
+         * option value
+         */
+        value: string
+    }
+
+    interface IDynamicSelectProps {
+        /**
+         * List of options to render. 
+         * This a function that will generate the array of objects.
+         * pagination will be supported. 
+         * The function expects 2 parameters - max and last and returns a promise that will resolve to the list of objects. max specifies the maximum number of items to be returned.
+         */
+        options: IDataFunction,
+        /**
+         * selected option value
+         */
+        selected: string,
+        /**
+         * Callback that gets executed whenever a option is selected/changed
+         */
+        onChange: (value: any) => void,
+        /**
+         * placeholder text
+         */
+        placeholder?: string,
+        /**
+         * Any extra css classes to add to the button 
+         */
+        className?: string,
+        /**
+         * set to valid state if true 
+         */
+        isValid?: boolean,
+        /**
+         * page size for pagination
+         */
+        pageSize?: number,
+        /**
+         * A function that will be responsible for rendering each individual option of the list.
+         * It is common to return  `ItemCard` component from here.
+         * 
+         * @example
+         * 
+         * ```
+         * renderItem={(option,key)=><div>{option.label}</div>}
+         * ```
+         * 
+         * @example
+         * ```
+         * renderItem={(option,key)=><ItemCard data={item} titleField='label' />}
+         * ```
+         */
+        renderOption?: (item: any, key: number) => JSX.Element,
+        /**
+         * name of the field to display
+         */
+        labelField: string,
+        /**
+         * number of milliseconds to delay send the request on change query
+         * default is 500
+         *
+         */
+        timeout?: number
+    }
+
+    /**
+     * 
+     * @export
+     * 
+     * This component is used to create a select box with pagination (infinite scrolling) & search/filter options.
+     * Support keyboard interactions 
+     *  - Arrow Keys (up & down) - navigate through options list
+     *  - Enter Key - Select current highlighted option
+     *  - Escape Key - Exit select mode & discard changes
+     * @example
+     * ```
+     *  <DynamicSelect
+     *      selected={selected}
+     *      options={(max: number, pageToken: string, args?: any) => getOptions(max, pageToken, args)}
+     *      onChange={(value) => { setSelected(value)}}
+     *      placeholder=" -- select --"
+     *      labelField="label"
+     *      timeout={500}
+     *  />
+     * ```
+     * 
+     */
+    export const DynamicSelect: React.FunctionComponent<IDynamicSelectProps>
+
 }
