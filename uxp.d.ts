@@ -1277,6 +1277,7 @@ declare module "uxp/components" {
 
 
     interface IDateRangePickerProps {
+        title: string,
         /**
          * start date of the range. Either a Date object or an ISO8601 string representation of a date
          */
@@ -1404,6 +1405,8 @@ declare module "uxp/components" {
     export const TimePicker: React.FunctionComponent<ITimePickerProps>
 
     interface ITimeRangePickerProps {
+        title: string,
+
         /**
          * Start time . Either a Date object or an time string (Ex: 01:10:00 pm)
          */
@@ -1478,6 +1481,8 @@ declare module "uxp/components" {
     export const TimeRangePicker: React.FunctionComponent<ITimeRangePickerProps>
 
     interface IDateTimePickerProps {
+        title: string,
+
         /**
         * The currently selected datetime. Either a Date object or an ISO8601 string representation of a date
         */

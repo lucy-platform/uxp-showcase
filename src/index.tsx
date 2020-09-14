@@ -1304,113 +1304,120 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                 </div>
 
                 <div className="showcase-section inline" id="date-picker">
-                    <h4>Date Picker</h4>
-                    <div className="example">
-                        <DatePicker
-                            title="Date"
-                            date={date}
-                            onChange={(date) => setDate(date)}
-                        />
+                        <h4>Date Picker</h4>
+                        <div className="example">
+                            <DatePicker
+                                title="Date"
+                                date={date}
+                                onChange={(date) => setDate(date)}
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="showcase-section inline" id="date-picker">
-                    <h4>Date Picker (disabled weekends)</h4>
-                    <div className="example">
-                        <DatePicker
-                            title="Date"
-                            date={date}
-                            onChange={(date) => setDate(date)}
-                            options={{
-                                disableWeekEnds: true
-                            }}
-                        />
+                    <div className="showcase-section inline" id="date-picker">
+                        <h4>Date Picker (disabled weekends)</h4>
+                        <div className="example">
+                            <DatePicker
+                                title="Date"
+                                date={date}
+                                onChange={(date) => setDate(date)}
+                                options={{
+                                    disableWeekEnds: true
+                                }}
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="showcase-section inline" id="date-picker">
-                    <h4>Date Picker (close on select)</h4>
-                    <div className="example">
-                        <DatePicker
-                            title="Date"
-                            date={date}
-                            onChange={(date) => setDate(date)}
-                            closeOnSelect
-                        />
+                    <div className="showcase-section inline" id="date-picker">
+                        <h4>Date Picker (close on select)</h4>
+                        <div className="example">
+                            <DatePicker
+                                title="Date"
+                                date={date}
+                                onChange={(date) => setDate(date)}
+                                closeOnSelect
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="showcase-section inline" id="date-range-picker">
-                    <h4>Date Range Picker (close on select)</h4>
-                    <div className="example">
-                        <DateRangePicker
-                            startDate={startDate}
-                            endDate={endDate}
-                            closeOnSelect
-                            onChange={(newStart, newEnd) => { setStartDate(newStart); setEndDate(newEnd) }}
-                        />
+                    <div className="showcase-section inline" id="date-range-picker">
+                        <h4>Date Range Picker (close on select)</h4>
+                        <div className="example">
+                            <DateRangePicker
+                                title="Date Range"
+                                startDate={startDate}
+                                endDate={endDate}
+                                closeOnSelect
+                                onChange={(newStart, newEnd) => { setStartDate(newStart); setEndDate(newEnd) }}
+                            />
 
+
+                        </div>
                     </div>
-                </div>
 
-                <div className="showcase-section inline" id="date-range-picker">
-                    <h4>Date Range Picker (disabled weekends, disabled dates)</h4>
-                    <div className="example">
-                        <DateRangePicker
-                            startDate={startDate}
-                            endDate={endDate}
-                            onChange={(newStart, newEnd) => { setStartDate(newStart); setEndDate(newEnd) }}
-                            options={{
-                                disableWeekEnds: true,
-                                disableDates: [addDays(new Date(), 1), addDays(new Date(), 2)]
-                            }}
-                        />
+                    <div className="showcase-section inline" id="date-range-picker">
+                        <h4>Date Range Picker (disabled weekends, disabled dates)</h4>
+                        <div className="example">
+                            <DateRangePicker
+                                title="Date Range"
+
+                                startDate={startDate}
+                                endDate={endDate}
+                                onChange={(newStart, newEnd) => { setStartDate(newStart); setEndDate(newEnd) }}
+                                options={{
+                                    disableWeekEnds: true,
+                                    disableDates: [addDays(new Date(), 1), addDays(new Date(), 2)]
+                                }}
+                            />
 
 
+                        </div>
                     </div>
-                </div>
 
-                <div className="showcase-section inline" id="date-range-picker">
-                    <h4>Date Range Picker (min, max Dates</h4>
-                    <div className="example">
-                        <DateRangePicker
-                            startDate={startDate}
-                            endDate={endDate}
-                            onChange={(newStart, newEnd) => { setStartDate(newStart); setEndDate(newEnd) }}
-                            options={{
-                                minDate: new Date(),
-                                maxDate: endOfMonth(new Date())
-                            }}
-                        />
+                    <div className="showcase-section inline" id="date-range-picker">
+                        <h4>Date Range Picker (min, max Dates</h4>
+                        <div className="example">
+                            <DateRangePicker
+                                title="Date Range"
+
+                                startDate={startDate}
+                                endDate={endDate}
+                                onChange={(newStart, newEnd) => { setStartDate(newStart); setEndDate(newEnd) }}
+                                options={{
+                                    minDate: new Date(),
+                                    maxDate: endOfMonth(new Date())
+                                }}
+                            />
 
 
+                        </div>
                     </div>
-                </div>
 
-                <div className="showcase-section inline" id="time-picker">
-                    <h4>Time Picker</h4>
-                    <div className="example">
-                        <TimePicker title="Time" time={date} onChange={(date) => setDate(date)} />
+                    <div className="showcase-section inline" id="time-picker">
+                        <h4>Time Picker</h4>
+                        <div className="example">
+                            <TimePicker title="Time" time={date} onChange={(date) => setDate(date)} />
+                        </div>
                     </div>
-                </div>
 
-                <div className="showcase-section inline " id="time-range-picker">
-                    <h4>Time Range Picker</h4>
-                    <div className="example">
-                        <TimeRangePicker startTime={startDate} endTime={endDate} onChange={(s, e) => { setStartDate(s); setEndDate(e) }} />
+                    <div className="showcase-section inline " id="time-range-picker">
+                        <h4>Time Range Picker</h4>
+                        <div className="example">
+                            <TimeRangePicker title="Time Range" startTime={startDate} endTime={endDate} onChange={(s, e) => { setStartDate(s); setEndDate(e) }} />
+                        </div>
                     </div>
-                </div>
 
-                <div className="showcase-section inline" id="date-time-picker">
-                    <h4>Date Time Picker</h4>
-                    <div className="example">
-                        <DateTimePicker
-                            datetime={date}
-                            onChange={(date) => { setDate(date); }}
-                        />
+                    <div className="showcase-section inline" id="date-time-picker">
+                        <h4>Date Time Picker</h4>
+                        <div className="example">
+                            <DateTimePicker
+                                title="Date Time"
+                                datetime={date}
+                                onChange={(date) => { setDate(date); }}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div className="showcase-section inline" id="item-list-card">
+                   <div className="showcase-section inline" id="item-list-card">
                     <h4>Item List Card</h4>
                     <div className="example" style={{ backgroundColor: "white", padding: 10 }}>
                         <ItemListCard
