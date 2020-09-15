@@ -30,7 +30,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.UXP_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-south-1'
           SOURCE_DIR: 'dist' 
-          DEST_DIR: 'dist/showcase/main'
+          DEST_DIR: 'dist/showcase/master'
   
 
  
