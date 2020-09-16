@@ -7,6 +7,8 @@ import ToolTipExample from "./components/ToolTipExample";
 import Welcome from "./components/Welcome";
 import PopoverExample from "./components/PopoverExmple";
 import { SearchBox } from "uxp/components";
+import ModalExample from "./components/ModalExample";
+import FilterPanelExample from "./components/FilterPanelExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -26,6 +28,16 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
         {
             label: "Popover",
             link: "/popover",
+            section: "portal"
+        },
+        {
+            label: "Modal",
+            link: "/modal",
+            section: "portal"
+        },
+        {
+            label: "Filter Panel",
+            link: "/filter-panel",
             section: "portal"
         }
     ]
@@ -101,6 +113,8 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/" component={Welcome} />
                         <Route exact path="/tooltip" component={ToolTipExample} />
                         <Route exact path="/popover" component={PopoverExample} />
+                        <Route exact path="/modal" component={ModalExample} />
+                        <Route exact path="/filter-panel" component={FilterPanelExample} />
                     </Switch>
                 </div>
             </div>
