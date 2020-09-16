@@ -29,25 +29,7 @@ declare module "uxp/components" {
         remove: IRemove
     }
 
-    /**
-     * @export
-     */
-    export interface IPopoverProps {
-        /**
-         * title of the popup bubble
-         */
-        title: string | HTMLElement,
-
-        /**
-         * the content to show within the bubble
-         */
-        content: string | HTMLElement,
-
-        /**
-         * Where the bubble should be positioned relative to the element
-         */
-        position?: IPosition
-    }
+    
 
     /**
      * @export
@@ -541,7 +523,7 @@ declare module "uxp/components" {
          * Where the tooltip should be placed relative to the element it is being displayed for
          * <Tooltip position="left" content="There are many like it but this one's mine" />
          */
-        position?: IPosition
+        position?: "top" | "bottom" | "left" | "right"
     }
     /**
      * This component wraps another component and shows a tooltip for the component it is wrapping, whenever the user moves the mouse over it.
@@ -551,6 +533,7 @@ declare module "uxp/components" {
     /**
  * @export
  */
+    type IPopoverPosition = "top" | "bottom" | "left" | "right"
     interface IPopoverProps {
         /**
          * title of the popup bubble
@@ -565,7 +548,7 @@ declare module "uxp/components" {
         /**
          * Where the bubble should be positioned relative to the element
          */
-        position?: IPosition
+        position?: IPopoverPosition
     }
     /**
      *
