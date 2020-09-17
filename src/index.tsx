@@ -126,7 +126,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
     }
 
     const renderSidebar = () => {
-        return <ul className="sidebar">
+        return <ul className="sidebar_showcase">
             <li className="section">
                 <SearchBox value={searchText} onChange={setSearchText} collapsed position="right" />
             </li>
