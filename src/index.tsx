@@ -19,6 +19,7 @@ import FormFeedbackExample from "./components/Form/FormFeedbackExample";
 import InputExample from "./components/Form/InputExample";
 import SelectExample from "./components/Form/SelectExample";
 import DynamicSelectExample from "./components/Form/DynamicSelectExample";
+import CheckboxExample from "./components/Form/CheckboxExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -92,6 +93,12 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
             link: "/dynamic-select",
             section: "form"
         },
+        {
+            label: "Checkbox",
+            link: "/checkbox",
+            section: "form"
+        },
+
     ]
 
     // states
@@ -175,6 +182,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/input" component={InputExample} />
                         <Route exact path="/select" component={SelectExample} />
                         <Route exact path="/dynamic-select" component={DynamicSelectExample} />
+                        <Route exact path="/checkbox" component={CheckboxExample} />
                     </Switch>
                 </div>
             </div>
