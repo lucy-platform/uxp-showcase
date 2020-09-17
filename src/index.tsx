@@ -16,6 +16,7 @@ import LabelExample from "./components/Form/LabelExample";
 import './styles.scss';
 import FormFieldExample from "./components/Form/FormFieldExample";
 import FormFeedbackExample from "./components/Form/FormFeedbackExample";
+import InputExample from "./components/Form/InputExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -164,6 +165,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/label" component={LabelExample} />
                         <Route exact path="/form-field" component={FormFieldExample} />
                         <Route exact path="/form-feedback" component={FormFeedbackExample} />
+                        <Route exact path="/input" component={InputExample} />
                     </Switch>
                 </div>
             </div>
