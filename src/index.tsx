@@ -1,15 +1,21 @@
 import * as React from "react";
 import { IContextProvider, registerUI } from './uxp';
+import { Label, SearchBox } from "uxp/components";
+
 import { HashRouter as Router, Link, Route, Switch } from "react-router-dom";
 
-import './styles.scss';
-import ToolTipExample from "./components/ToolTipExample";
+import ToolTipExample from "./components/Portal/ToolTipExample";
 import Welcome from "./components/Welcome";
-import PopoverExample from "./components/PopoverExmple";
-import { SearchBox } from "uxp/components";
-import ModalExample from "./components/ModalExample";
-import FilterPanelExample from "./components/FilterPanelExample";
-import ToastExample from "./components/ToastExample";
+import PopoverExample from "./components/Portal/PopoverExample";
+import ModalExample from "./components/Portal/ModalExample";
+import FilterPanelExample from "./components/Portal/FilterPanelExample";
+import ToastExample from "./components/Toast/ToastExample";
+import LabelExample from "./components/Form/LabelExample";
+
+
+import './styles.scss';
+import FormFieldExample from "./components/Form/FormFieldExample";
+import FormFeedbackExample from "./components/Form/FormFeedbackExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -18,9 +24,12 @@ interface IUxp_showcaseProps {
 const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
 
     let _sections: any[] = [
-        { id: "portal", label: "Portal" }
+        { id: "portal", label: "Portal" },
+        { id: "toast", label: "Toasts" },
+        { id: "form", label: "Form Components" }
     ];
     let _sidebarContent: any[] = [
+        // portal
         {
             label: "Tooltip",
             link: "/tooltip",
@@ -41,11 +50,40 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
             link: "/filter-panel",
             section: "portal"
         },
+
+        // toast
         {
             label: "Toast Notifications",
             link: "/toast",
-            section: "portal"
-        }
+            section: "toast"
+        },
+
+        // form
+        {
+            label: "Label",
+            link: "/label",
+            section: "form"
+        },
+        {
+            label: "Form Field",
+            link: "/form-field",
+            section: "form"
+        },
+        {
+            label: "Form Feedback",
+            link: "/form-feedback",
+            section: "form"
+        },
+        {
+            label: "Input",
+            link: "/input",
+            section: "form"
+        },
+        {
+            label: "Select",
+            link: "/select",
+            section: "form"
+        },
     ]
 
     // states
@@ -122,6 +160,10 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/modal" component={ModalExample} />
                         <Route exact path="/filter-panel" component={FilterPanelExample} />
                         <Route exact path="/toast" component={ToastExample} />
+
+                        <Route exact path="/label" component={LabelExample} />
+                        <Route exact path="/form-field" component={FormFieldExample} />
+                        <Route exact path="/form-feedback" component={FormFeedbackExample} />
                     </Switch>
                 </div>
             </div>
