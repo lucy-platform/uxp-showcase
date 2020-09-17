@@ -1735,7 +1735,8 @@ declare module "uxp/components" {
          * default is 500
          *
          */
-        timeout?: number
+        timeout?: number,
+        type?: "search-box" | "select-box"
     }
 
     /**
