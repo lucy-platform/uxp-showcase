@@ -20,6 +20,9 @@ import InputExample from "./components/Form/InputExample";
 import SelectExample from "./components/Form/SelectExample";
 import DynamicSelectExample from "./components/Form/DynamicSelectExample";
 import CheckboxExample from "./components/Form/CheckboxExample";
+import ToggleFilterExample from "./components/Form/ToggleFilterExample";
+import DatePickerExample from "./components/Form/DatePickerExample";
+import DateRangePickerExample from "./components/Form/DateRangePickerExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -98,7 +101,41 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
             link: "/checkbox",
             section: "form"
         },
-
+        {
+            label: "Toggle Filter",
+            link: "/toggle-filter",
+            section: "form"
+        },
+        {
+            label: "Date Picker",
+            link: "/date-picker",
+            section: "form"
+        },
+        {
+            label: "Date Range Picker",
+            link: "/date-range-picker",
+            section: "form"
+        },
+        {
+            label: "Time picker",
+            link: "/time-picker",
+            section: "form"
+        },
+        {
+            label: "Time Rne Picker",
+            link: "/time-range-picker",
+            section: "form"
+        },
+        {
+            label: "Date Time Picker",
+            link: "/date-time-picker",
+            section: "form"
+        },
+        {
+            label: "Search Box",
+            link: "/search-box",
+            section: "form"
+        }
     ]
 
     // states
@@ -111,18 +148,18 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
         let regEx = new RegExp(searchText);
         let _filteredSections: any[] = [];
         let _filteredItems = _sidebarContent.filter((item: any) => {
-        
+
             // TODO :: check keywords too
             let has = regEx.test(item.label.toLowerCase())
 
-            if(has && _filteredSections.indexOf(item.section) == -1) {
+            if (has && _filteredSections.indexOf(item.section) == -1) {
                 _filteredSections.push(item.section)
             }
 
             return has
         });
 
-        setSections(_sections.filter((section:any) => (_filteredSections.indexOf(section.id) !== -1)))
+        setSections(_sections.filter((section: any) => (_filteredSections.indexOf(section.id) !== -1)))
         setSidebarContent(_filteredItems)
 
     }, [searchText])
@@ -183,6 +220,13 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/select" component={SelectExample} />
                         <Route exact path="/dynamic-select" component={DynamicSelectExample} />
                         <Route exact path="/checkbox" component={CheckboxExample} />
+                        <Route exact path="/toggle-filter" component={ToggleFilterExample} />
+                        <Route exact path="/date-picker" component={DatePickerExample} />
+                        <Route exact path="/date-range-picker" component={DateRangePickerExample} />
+                        <Route exact path="/time-picker" component={ToggleFilterExample} />
+                        <Route exact path="/time-range-picker" component={ToggleFilterExample} />
+                        <Route exact path="/date-time-picker" component={ToggleFilterExample} />
+                        <Route exact path="/search-box" component={ToggleFilterExample} />
                     </Switch>
                 </div>
             </div>
