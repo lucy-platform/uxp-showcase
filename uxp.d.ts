@@ -29,7 +29,7 @@ declare module "uxp/components" {
         remove: IRemove
     }
 
-    
+
 
     /**
      * @export
@@ -1060,14 +1060,49 @@ declare module "uxp/components" {
      */
     export const AsyncButton: React.FunctionComponent<IAsyncButtonProps>;
 
+    /**
+ * Represents an individual marker
+ * @example
+ * {latitude:0,longitude:23.2,data:{'name':'FooBar'}}
+ * 
+ * @export
+ */
+    interface IMarker {
+        latitude: number,
+        longitude: number,
+        data?: any
+    }
+    /**
+     * @exports
+     */
+    type regionType = "circle" | "rectangle" | "polygon"
+
+    interface ICircleBound {
+        center: [number, number],
+        radius: number
+    }
+    /**
+     * @exports
+     */
+    type IPolygonBound = LatLngExpression[] | LatLngExpression[][];
+
+    interface IRegion {
+        type?: regionType, // default is polygon
+        bounds: IPolygonBound | ICircleBound,
+        hideStroke?: boolean,
+        color?: string,
+        fillColor?: string,
+        data?: any
+    }
+
     interface IMapComponentProps {
         /**
          * The url of the tile server that will serve up map tiles.
          * This url should have the following placeholders in them:
          * `{x}`, `{y}` and `{z}`
-         *
+         * 
          * `{z}` represents the current zoom level
-         *
+         * 
          * @example
          * ```
          * mapUrl="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -1093,18 +1128,28 @@ declare module "uxp/components" {
          * Where the map is centered.
          */
         center?: { position: IMarker, renderMarker?: boolean },
+        /**
+         * regions to show on map
+         */
+        regions?: IRegion[],
+        /**
+         * this handler will get called when a region is clicked
+         * 
+         */
+        onRegionClick?: (event: any, data: any) => void
 
         /**
          * The default zoom level to show on the map
          */
         zoom?: number
     }
+
     /**
      * A map widget that can show a pannable/zoomable map with markers
      * @export
-     *
+     * 
      */
-    export const MapComponent: React.FunctionComponent<IMapComponentProps>;
+    const MapComponent: React.FunctionComponent<IMapComponentProps>
     /**
  * @export
  *
@@ -1762,5 +1807,50 @@ declare module "uxp/components" {
      * 
      */
     export const DynamicSelect: React.FunctionComponent<IDynamicSelectProps>
+
+    interface IConfirmButtonProps {
+        /**
+         * The caption for the button
+         */
+        title: string,
+
+        /**
+         * The url of an icon to show on the button
+         */
+        icon?: string,
+
+        /**
+         * Any extra css classes to add to the button 
+         */
+        className?: string,
+
+        /**
+         * The callback that gets invoked when the confirm button is clicked
+         */
+        onConfirm: () => void,
+        /**
+         * The callback that gets invoked when the cancel button is clicked
+         */
+        onCancel: () => void,
+
+        /**
+         * Set this to `true` to show the button in its 'loading...' state.
+         * In this state, an animation will be shown indicating that work is going on and the user will not be able to click the button
+         */
+        loading?: boolean,
+
+        /**
+         * The caption to show on the button when its in loading state
+         */
+        loadingTitle?: string,
+        active?: boolean,
+        disabled?: boolean
+    }
+
+    /**
+     * This is a confirm button component.
+     * @export
+     */
+    export const ConfirmButton: React.FunctionComponent<IConfirmButtonProps>
 
 }

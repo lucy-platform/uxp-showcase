@@ -33,6 +33,13 @@ import LoadingBlockExample from "./components/Widgets/LoadingBlockExample";
 import NotificationBlockExample from "./components/Widgets/NotificationBlockExample";
 import ProfileImageExample from "./components/Widgets/ProfileImageExample";
 import ItemCardExample from "./components/Widgets/ItemCardExample";
+import ButtonsExample from "./components/Widgets/ButtonsExample";
+import DataListExample from "./components/Lists/DataListExample";
+import DataGridExample from "./components/Lists/DataGridExample";
+import ItemListCardExample from "./components/Lists/ItemListCardExample";
+import PieChartExample from "./components/Charts/PieChartExample";
+import TrendChartExample from "./components/Charts/TrendChartExample";
+import MapComponentExample from "./components/Maps/MapComponentExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -44,7 +51,11 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
         { id: "portal", label: "Portal" },
         { id: "toast", label: "Toasts" },
         { id: "form", label: "Form Components" },
-        { id: "widget", label: "Widget Components" }
+        { id: "widgets", label: "Widget Components" },
+        { id: "lists", label: "Lists" },
+        { id: "charts", label: "Charts" },
+        { id: "maps", label: "Maps" }
+
     ];
     let _sidebarContent: any[] = [
         // portal
@@ -152,40 +163,80 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
         {
             label: "Widget Wrapper",
             link: "/widget-wrapper",
-            section: "widget"
+            section: "widgets"
         },
         {
             label: "Link Widget Container",
             link: "/link-widget-container",
-            section: "widget"
+            section: "widgets"
         },
         {
             label: "Title Bar",
             link: "/title-bar",
-            section: "widget"
+            section: "widgets"
         },
         {
             label: "Loading Block",
             link: "/loading-block",
-            section: "widget"
+            section: "widgets"
         },
         {
             label: "Notification Block",
             link: "/notification-block",
-            section: "widget"
+            section: "widgets"
         },
         {
             label: "Profile Image",
             link: "/profile-image",
-            section: "widget"
+            section: "widgets"
         },
         {
             label: "Item Card",
             link: "/item-card",
-            section: "widget"
+            section: "widgets"
+        },
+        {
+            label: "Buttons",
+            link: "/buttons",
+            section: "widgets"
         },
 
+        // lists 
+        {
+            label: "Data List",
+            link: "/data-list",
+            section: "lists"
+        },
+        {
+            label: "Data Grid",
+            link: "/data-grid",
+            section: "lists"
+        },
+        {
+            label: "Item List Card",
+            link: "/item-list-card",
+            section: "lists"
+        },
 
+        // charts
+        {
+            label: "Pie Chart",
+            link: "/pie-chart",
+            section: "charts"
+        },
+        {
+            label: "Trend Chart",
+            link: "/Trend-chart",
+            section: "charts"
+        },
+
+        // maps 
+        {
+            label: "Map Component",
+            link: "/map-component",
+            section: "maps"
+        },
+        
     ]
 
     // states
@@ -290,6 +341,19 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/notification-block" component={NotificationBlockExample} />
                         <Route exact path="/profile-image" component={ProfileImageExample} />
                         <Route exact path="/item-card" component={ItemCardExample} />
+                        <Route exact path="/buttons" component={ButtonsExample} />
+
+                        {/* lists */}
+                        <Route exact path="/data-list" component={DataListExample} />
+                        <Route exact path="/data-grid" component={DataGridExample} />
+                        <Route exact path="/item-list-card" component={ItemListCardExample} />
+
+                        {/* charts */}
+                        <Route exact path="/pie-chart" component={PieChartExample} />
+                        <Route exact path="/trend-chart" component={TrendChartExample} />
+
+                        {/* map */}
+                        <Route exact path="/map-component" component={MapComponentExample} />
                     </Switch>
                 </div>
             </div>
