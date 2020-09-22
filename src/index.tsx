@@ -32,6 +32,7 @@ import TitleBarExample from "./components/Widgets/TitleBarExample";
 import LoadingBlockExample from "./components/Widgets/LoadingBlockExample";
 import NotificationBlockExample from "./components/Widgets/NotificationBlockExample";
 import ProfileImageExample from "./components/Widgets/ProfileImageExample";
+import ItemCardExample from "./components/Widgets/ItemCardExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -178,6 +179,12 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
             link: "/profile-image",
             section: "widget"
         },
+        {
+            label: "Item Card",
+            link: "/item-card",
+            section: "widget"
+        },
+
 
     ]
 
@@ -282,6 +289,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/loading-block" component={LoadingBlockExample} />
                         <Route exact path="/notification-block" component={NotificationBlockExample} />
                         <Route exact path="/profile-image" component={ProfileImageExample} />
+                        <Route exact path="/item-card" component={ItemCardExample} />
                     </Switch>
                 </div>
             </div>
