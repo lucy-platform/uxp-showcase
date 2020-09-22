@@ -1,8 +1,10 @@
 import * as React from "react";
 import { IContextProvider, registerUI } from './uxp';
-import { Label, SearchBox } from "uxp/components";
+import { DateTimePicker, SearchBox } from "uxp/components";
 
 import { HashRouter as Router, Link, Route, Switch } from "react-router-dom";
+
+import './styles.scss';
 
 import ToolTipExample from "./components/Portal/ToolTipExample";
 import Welcome from "./components/Welcome";
@@ -11,9 +13,6 @@ import ModalExample from "./components/Portal/ModalExample";
 import FilterPanelExample from "./components/Portal/FilterPanelExample";
 import ToastExample from "./components/Toast/ToastExample";
 import LabelExample from "./components/Form/LabelExample";
-
-
-import './styles.scss';
 import FormFieldExample from "./components/Form/FormFieldExample";
 import FormFeedbackExample from "./components/Form/FormFeedbackExample";
 import InputExample from "./components/Form/InputExample";
@@ -23,6 +22,11 @@ import CheckboxExample from "./components/Form/CheckboxExample";
 import ToggleFilterExample from "./components/Form/ToggleFilterExample";
 import DatePickerExample from "./components/Form/DatePickerExample";
 import DateRangePickerExample from "./components/Form/DateRangePickerExample";
+import WidgetWrapperExample from "./components/Widgets/WidgetWrapperExample";
+import TimePickerExample from "./components/Form/TimePickerExample";
+import TimeRagePickerExample from "./components/Form/TimeRagePickerExample";
+import DateTimePickerExample from "./components/Form/DateTimePickerExample";
+import SearchboxExample from "./components/Form/SearchboxExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -33,7 +37,8 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
     let _sections: any[] = [
         { id: "portal", label: "Portal" },
         { id: "toast", label: "Toasts" },
-        { id: "form", label: "Form Components" }
+        { id: "form", label: "Form Components" },
+        { id: "widget", label: "Widget Components" }
     ];
     let _sidebarContent: any[] = [
         // portal
@@ -135,7 +140,40 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
             label: "Search Box",
             link: "/search-box",
             section: "form"
-        }
+        },
+
+        // widgets
+        {
+            label: "Widget Wrapper",
+            link: "/widget-wrapper",
+            section: "widget"
+        },
+        {
+            label: "Link Widget",
+            link: "/link-widget",
+            section: "widget"
+        },
+        {
+            label: "Title Bar",
+            link: "/title-bar",
+            section: "widget"
+        },
+        {
+            label: "Loading Block",
+            link: "/loading-block",
+            section: "widget"
+        },
+        {
+            label: "Notification Block",
+            link: "/notification-block",
+            section: "widget"
+        },
+        {
+            label: "Profile Image",
+            link: "/profile-image",
+            section: "widget"
+        },
+
     ]
 
     // states
@@ -180,7 +218,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
     const renderSidebar = () => {
         return <ul className="sidebar_showcase">
             <li className="section">
-                <SearchBox value={searchText} onChange={setSearchText} collapsed position="right" />
+                <SearchBox className="showcase" value={searchText} onChange={setSearchText} collapsed position="right" />
             </li>
             <li className="section"><Link to="/" >Introduction</Link></li>
             {
@@ -206,13 +244,17 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
             <div className="content">
                 <div className="uxp-showcase">
                     <Switch>
+                        {/* portal */}
                         <Route exact path="/" component={Welcome} />
                         <Route exact path="/tooltip" component={ToolTipExample} />
                         <Route exact path="/popover" component={PopoverExample} />
                         <Route exact path="/modal" component={ModalExample} />
                         <Route exact path="/filter-panel" component={FilterPanelExample} />
+
+                        {/* Toast */}
                         <Route exact path="/toast" component={ToastExample} />
 
+                        {/* form */}
                         <Route exact path="/label" component={LabelExample} />
                         <Route exact path="/form-field" component={FormFieldExample} />
                         <Route exact path="/form-feedback" component={FormFeedbackExample} />
@@ -223,10 +265,13 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/toggle-filter" component={ToggleFilterExample} />
                         <Route exact path="/date-picker" component={DatePickerExample} />
                         <Route exact path="/date-range-picker" component={DateRangePickerExample} />
-                        <Route exact path="/time-picker" component={ToggleFilterExample} />
-                        <Route exact path="/time-range-picker" component={ToggleFilterExample} />
-                        <Route exact path="/date-time-picker" component={ToggleFilterExample} />
-                        <Route exact path="/search-box" component={ToggleFilterExample} />
+                        <Route exact path="/time-picker" component={TimePickerExample} />
+                        <Route exact path="/time-range-picker" component={TimeRagePickerExample} />
+                        <Route exact path="/date-time-picker" component={DateTimePickerExample} />
+                        <Route exact path="/search-box" component={SearchboxExample} />
+
+                        {/* widgets */}
+                        <Route exact path="/widget-wrapper" component={WidgetWrapperExample} />
                     </Switch>
                 </div>
             </div>
