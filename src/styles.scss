@@ -24,7 +24,6 @@
     }
 }
 
-
 .uxp-showcase-container {
     width: 100%;
     height: 100%;
@@ -100,6 +99,11 @@
 
                         a {
                             padding-left: 0;
+                            text-decoration: none;
+
+                            &:hover, &:active, &:focus, &:visited {
+                                color: #424242;
+                            }
                         }
                     }
 
@@ -109,13 +113,16 @@
                         padding: 10px 6px 10px 20px;
                         position: relative;
                         font-size: 10px;
+                        &:hover, &:active, &:focus, &:visited {
+                            color: #424242;
+                        }
                     }
                 }
             }
         }
     }
 
-    &>.content {
+    & > .content {
         flex-basis: 88%;
         height: 100%;
         overflow: auto;
@@ -171,3 +178,13 @@
     width: 33%;
 }
 
+.welcome-block {
+    text-align: center;
+    padding: 100px!important;
+
+    p {
+
+        font-size: 16px;
+        line-height: 1.5;
+    }
+}
