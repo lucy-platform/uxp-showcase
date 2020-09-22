@@ -5,7 +5,7 @@ const FormFeedbackExample: React.FunctionComponent<{}> = (props) => {
     return (<div className="section">
         <h3>Form Feedback</h3>
 
-        <div className="showcase-section ">
+        <div className="showcase-section bgWhite ">
             <h4>Form Feedback (valid) </h4>
             <div className="example">
                 <FormFeedback validInput>Form feedback ( valid )</FormFeedback>
@@ -15,7 +15,7 @@ const FormFeedbackExample: React.FunctionComponent<{}> = (props) => {
             </div>
         </div>
 
-        <div className="showcase-section ">
+        <div className="showcase-section bgWhite">
             <h4>Form Feedback (in-valid) </h4>
             <div className="example">
                 <FormFeedback validInput={false}>Form feedback ( invalid )</FormFeedback>

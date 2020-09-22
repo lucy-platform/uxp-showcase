@@ -1,6 +1,6 @@
 import * as React from "react";
 import { IContextProvider, registerUI } from './uxp';
-import { DateTimePicker, SearchBox } from "uxp/components";
+import { SearchBox } from "uxp/components";
 
 import { HashRouter as Router, Link, Route, Switch } from "react-router-dom";
 
@@ -27,6 +27,11 @@ import TimePickerExample from "./components/Form/TimePickerExample";
 import TimeRagePickerExample from "./components/Form/TimeRagePickerExample";
 import DateTimePickerExample from "./components/Form/DateTimePickerExample";
 import SearchboxExample from "./components/Form/SearchboxExample";
+import LinkWidgetContainerExample from "./components/Widgets/LinkWidgetContainerExample";
+import TitleBarExample from "./components/Widgets/TitleBarExample";
+import LoadingBlockExample from "./components/Widgets/LoadingBlockExample";
+import NotificationBlockExample from "./components/Widgets/NotificationBlockExample";
+import ProfileImageExample from "./components/Widgets/ProfileImageExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -149,8 +154,8 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
             section: "widget"
         },
         {
-            label: "Link Widget",
-            link: "/link-widget",
+            label: "Link Widget Container",
+            link: "/link-widget-container",
             section: "widget"
         },
         {
@@ -272,6 +277,11 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
 
                         {/* widgets */}
                         <Route exact path="/widget-wrapper" component={WidgetWrapperExample} />
+                        <Route exact path="/link-widget-container" component={LinkWidgetContainerExample} />
+                        <Route exact path="/title-bar" component={TitleBarExample} />
+                        <Route exact path="/loading-block" component={LoadingBlockExample} />
+                        <Route exact path="/notification-block" component={NotificationBlockExample} />
+                        <Route exact path="/profile-image" component={ProfileImageExample} />
                     </Switch>
                 </div>
             </div>
