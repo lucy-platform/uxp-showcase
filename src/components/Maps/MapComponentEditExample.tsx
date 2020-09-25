@@ -37,15 +37,7 @@ const MapComponentEditExample: React.FunctionComponent<IProps> = (props) => {
     // }, [regions])
 
     const addRegion = () => {
-        let _regions = [...regions];
-        _regions.push({
-            type: "polygon",
-            bounds: [],
-            color: "purple"
-        })
-
         setIsAddingRegion(true);
-        // setRegions(_regions)
     }
 
     const onClickMap = (e: any) => {
