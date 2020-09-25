@@ -40,6 +40,7 @@ import ItemListCardExample from "./components/Lists/ItemListCardExample";
 import PieChartExample from "./components/Charts/PieChartExample";
 import TrendChartExample from "./components/Charts/TrendChartExample";
 import MapComponentExample from "./components/Maps/MapComponentExample";
+import MapComponentEditExample from "./components/Maps/MapComponentEditExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -294,6 +295,9 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                     </>
                 })
             }
+            <li>
+                <a href="renderUI.html?id=map-edit">Edit Map</a>
+            </li>
         </ul>
     }
 
@@ -366,4 +370,9 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
 registerUI({
     id: "uxp-showcase",
     component: UXPShowcase
+})
+
+registerUI({
+    id: "map-edit",
+    component: MapComponentEditExample
 })

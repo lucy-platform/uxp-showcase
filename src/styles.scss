@@ -188,3 +188,24 @@
         line-height: 1.5;
     }
 }
+
+.map-tb {
+    display: flex;
+    align-items:center;
+    justify-content: flex-end;
+    padding: 15px 30px;
+
+    & > button {
+     margin: 0;   
+    }
+
+    &> .map-tb-notification {
+        display: flex;
+        padding: 15px;
+
+        & > p {
+          margin-right: 10px;  
+        }
+    }
+    
+}

@@ -1142,6 +1142,10 @@ declare module "uxp/components" {
          * The default zoom level to show on the map
          */
         zoom?: number
+        /**
+        * this handler will get called when the map is clicked 
+        */
+        onClick?: (event: LeafletMouseEvent) => void
     }
 
     /**
