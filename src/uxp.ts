@@ -55,7 +55,8 @@ interface ISidebarLink {
 interface IRenderUIItemProps {
     id: string,
     component: any,
-    uiProps?: any
+    uiProps?: any,
+    label: string
 }
 
 declare global {

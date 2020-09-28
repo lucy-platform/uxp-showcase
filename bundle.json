@@ -1,16 +1,16 @@
 {
-    "id":"6f6e8c4a-0c93-4daf-cddb-4db528cb7147",
-    "author":"",
-    "widgets":[
+    "id": "6f6e8c4a-0c93-4daf-cddb-4db528cb7147",
+    "author": "dinesh_gamage",
+    "widgets": [],
+    "sidebarLinks": [],
+    "uis": [
         {
-            "id":"uxp_showcase",
-            "title":"uxp_showcase",
-            "description":"A sample widget"
-        }
-    ],
-    "sidebarLinks":[
+            "id": "uxp-showcase",
+            "label": "Showcase"
+        },
         {
-            "id":"uxp_showcaseLink"
+            "id": "map-edit",
+            "label": "Map Edit"
         }
     ]
 }

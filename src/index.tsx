@@ -369,10 +369,12 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
 
 registerUI({
     id: "uxp-showcase",
+    label: "Showcase",
     component: UXPShowcase
 })
 
 registerUI({
     id: "map-edit",
+    label: "Map Edit",
     component: MapComponentEditExample
 })
