@@ -41,6 +41,7 @@ import PieChartExample from "./components/Charts/PieChartExample";
 import TrendChartExample from "./components/Charts/TrendChartExample";
 import MapComponentExample from "./components/Maps/MapComponentExample";
 import MapComponentEditExample from "./components/Maps/MapComponentEditExample";
+import DataTableExample from "./components/Lists/DataTableExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -209,6 +210,11 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
             section: "lists"
         },
         {
+            label: "Data Table",
+            link: "/data-table",
+            section: "lists"
+        },
+        {
             label: "Data Grid",
             link: "/data-grid",
             section: "lists"
@@ -349,6 +355,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
 
                         {/* lists */}
                         <Route exact path="/data-list" component={DataListExample} />
+                        <Route exact path="/data-table" component={DataTableExample} />
                         <Route exact path="/data-grid" component={DataGridExample} />
                         <Route exact path="/item-list-card" component={ItemListCardExample} />
 

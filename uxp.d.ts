@@ -1,5 +1,15 @@
 declare module "uxp/components" {
 
+    interface IOption {
+        /**
+         * option label
+         */
+        label: string,
+        /**
+         * option value
+         */
+        value: string
+    }
     /**
      * @export
      * Options that can be passed to a portal container component
@@ -13,7 +23,39 @@ declare module "uxp/components" {
         /**
          * callback function to click on backdrop
          */
-        onClickBackdrop?: () => void
+        onClickBackdrop?: () => void,
+
+        /**
+         * additional styles to backdrop
+         */
+        backdropStyles?: any
+        /**
+         * disabled the scrolling of main content block if true
+         * default value is true
+         */
+        disableScroll?: boolean
+    }
+
+    /**
+     * This function is invoked to display a toast (notification popup).
+     *
+     * @param title - the title to show in the notification popup
+     * @param content - the content to show in the notification popup
+     * @param showCloseBtn - set to true to show a close button on the notification popup
+     * @param autoClose - if set to true, the notification popup will automatically dismiss itself after a preset duration
+     * @param closeAfter - how many seconds to wait before closing - only applicable if autoClose is set to true
+     * @param onClose - callback that is invoked after the toast is closed
+     *
+     * @export
+     *
+     */
+    export interface IPartialContent {
+        title?: string | HTMLElement,
+        content: string | HTMLElement,
+        showCloseBtn?: boolean,
+        autoClose?: boolean,
+        onClose?: any,
+        closeAfter?: number,
     }
 
     /**
@@ -29,7 +71,59 @@ declare module "uxp/components" {
         remove: IRemove
     }
 
+    /**
+     * @export
+     */
+    export interface IPopoverProps {
+        /**
+         * title of the popup bubble
+         */
+        title: string | HTMLElement,
 
+        /**
+         * the content to show within the bubble
+         */
+        content: string | HTMLElement,
+
+        /**
+         * Where the bubble should be positioned relative to the element
+         */
+        position?: IPosition
+    }
+
+    /**
+     * @export
+     */
+    export interface ISelectProps {
+        /**
+         * List of items to select from. Each option has a label which is displayed and a value which is what we actually select.
+         */
+        options: IOption[],
+        /**
+         * The  currently selected value
+         */
+        selected: string,
+
+        /**
+         * Gets called whenever the selection changes. The value parameter has the newly selected value
+         */
+        onChange: (value: string) => void,
+
+        /**
+         * Text to show when no value is selected
+         */
+        placeholder?: string,
+        /**
+         * Any extra css classes to add to the component
+         */
+        className?: string,
+
+        /**
+         * Set this to false to indicate the field doesn't have a valid value
+         */
+        isValid?: boolean,
+        // inputAttr?: any
+    }
 
     /**
      * @export
@@ -128,7 +222,7 @@ declare module "uxp/components" {
         closeOnSelect?: boolean,
 
         /**
-         * Additional options to control behaviour
+         * Additional options to control behavior
          */
         options?: IDatePickerOptions,
 
@@ -172,25 +266,9 @@ declare module "uxp/components" {
     }
 
     /**
-     * This function is invoked to display a toast
-     * @param title - the title to show in the notification popup
-     * @param content - the content to show in the notification popup
-     * @param showCloseBtn - set to true to show a close button on the notification popup
-     * @param autoClose - if set to true, the notification popup will automatically dismiss itself after a preset duration
-     * @param closeAfter - how many seconds to wait before closing - only applicable if autoClose is set to true
-     * @param onClose - callback that is invoked after the toast is closed
-     *
      * @export
-     *
      */
-    export type IToast = (content: {
-        title?: string | HTMLElement,
-        content: string | HTMLElement,
-        showCloseBtn?: boolean,
-        autoClose?: boolean,
-        onClose?: any,
-        closeAfter?: number,
-    }) => void;
+    export type IToast = (content: string | IPartialContent) => void;
 
     /**
      * The react hook for creating toasts
@@ -210,6 +288,17 @@ declare module "uxp/components" {
     export type ICallback = () => void;
 
     /**
+     * @export
+     */
+    export type IDataFunction = (max: number, lastPageToken: string, args?: any) => Promise<{ items: Array<any>, pageToken: string }>;
+
+    /**
+     * The react hook for resize effect
+     * @export
+     */
+    export type ResizeEffectHook = (instanceId: string) => boolean
+
+    /**
      * Um - animations. We need to work on this.
      * @export
      */
@@ -224,7 +313,22 @@ declare module "uxp/components" {
     /**
      * @export
      */
+    export type IPosition = "left" | "right" | "top"| "bottom";
+
+    /**
+     * @export
+     */
     export type ISize = "small" | "large";
+
+    /**
+     * @export
+     */
+    export type IButtonType = "search" | "close" | "done" | "arrow-up" | "arrow-down" | "arrow-left" | "arrow-right" | "filter";
+
+    /**
+     * @export
+     */
+    export type IButtonSize = "large" | "small";
 
     /**
      * @export
@@ -244,7 +348,17 @@ declare module "uxp/components" {
         /**
          * callback function to click on backdrop
          */
-        onClickBackdrop?: () => void
+        onClickBackdrop?: () => void,
+
+        /**
+         * additional styles to backdrop
+         */
+        backdropStyles?: any
+        /**
+         * disabled the scrolling of main content block if true
+         * default value is true
+         */
+        disableScroll?: boolean
     }
     /**
      *
@@ -255,15 +369,19 @@ declare module "uxp/components" {
      *
      * @example
      * ```
-     * <PortalContainer >
+     *  <PortalContainer >
      *      {your content}
-     * </PortalContainer>
+     *  </PortalContainer>
      * ```
      *
      * @example
-     * <PortalContainer hasBackdrop onClickBackdrop={() => {setShow(false)}}>
+     *  <PortalContainer
+     *      hasBackdrop
+     *      onClickBackdrop={() => {setShow(false)}}
+     *      backdropStyles={{backgroundColor: "white"}}
+     *  >
      *      {your content}
-     * </PortalContainer>
+     *  </PortalContainer>
      */
     export const PortalContainer: React.FunctionComponent<IPortalContainerProps>;
 
@@ -275,15 +393,15 @@ declare module "uxp/components" {
         /**
          * Called whenever the modal is opened
          */
-        onOpen: () => void,
+        onOpen?: () => void,
 
         /**
          * Called when the modal gets closed
          */
-        onClose: () => void,
+        onClose?: () => void,
 
         /**
-         * The title set in the titlebar of the modal
+         * The title set in the title bar of the modal
          * If the `headerContent` attribute is set, then this value will not be used.
          */
         title?: string,
@@ -302,7 +420,7 @@ declare module "uxp/components" {
         /**
          * Any extra css classes to apply
          */
-        class?: string,
+        className?: string,
 
         /**
          * Any custom content to include in the modal header.
@@ -323,20 +441,34 @@ declare module "uxp/components" {
         /**
          * Animation to use when opening/closing a modal
          */
-        animation?: IAnimation
+        animation?: IAnimation,
+        /**
+         * additional styles for backdrop
+         */
+        backdropStyles?: any,
+        /**
+         * additional content to render
+         */
+        renderAdditionalContent?: () => JSX.Element
     }
     /**
      * Display a modal dialog. The dialog will be placed in front of a invisible sheet above the main UI.
      * @example
      * ```
-     *  <button className="btn showcase" onClick={() => setShowModal(true)}>Click to Show Modal</button>
-     *                           <Modal
-     *                               show={showModal}
-     *                               onOpen={() => { }}
-     *                               onClose={() => setShowModal(false)}
-     *                           >
-     *                               This is a sample modal
-     *                           </Modal>
+     *  <button
+     *      className="btn showcase"
+     *      onClick={() => setShowModal(true)}
+     *  >
+     *      Click to Show Modal
+     *  </button>
+     *
+     *  <Modal
+     *      show={showModal}
+     *      onOpen={() => { }}
+     *      onClose={() => setShowModal(false)}
+     *  >
+     *      This is a sample modal
+     *  </Modal>
      * ```
      * @export
      *
@@ -508,6 +640,46 @@ declare module "uxp/components" {
      */
     export const Button: React.FunctionComponent<IButtonProps>;
 
+    interface IIConButtonProps {
+        /**
+         * button type
+         */
+        type: IButtonType,
+        /**
+         * Set button to active state when true
+         */
+        active?: boolean,
+        /**
+         * Set button to disabled state when true
+         */
+        disabled?: boolean,
+        /**
+         * The callback that gets invoked when the button is clicked.
+         */
+        onClick?: () => void,
+        /**
+        * Any extra css classes to apply
+        */
+        className?: string,
+        /**
+        * button size
+        */
+        size?: IButtonSize
+    }
+    /**
+     *
+     * @export
+     *
+     * Default set of buttons with icons
+     *
+     * @example
+     * ```
+     *  <IconButton type="search" />
+     * ```
+     *
+     */
+    export const IconButton: React.FunctionComponent<IIConButtonProps>;
+
     interface ITooltipProps {
         /**
          * The content to show inside the tooltip
@@ -523,7 +695,7 @@ declare module "uxp/components" {
          * Where the tooltip should be placed relative to the element it is being displayed for
          * <Tooltip position="left" content="There are many like it but this one's mine" />
          */
-        position?: "top" | "bottom" | "left" | "right"
+        position?: IPosition
     }
     /**
      * This component wraps another component and shows a tooltip for the component it is wrapping, whenever the user moves the mouse over it.
@@ -533,7 +705,6 @@ declare module "uxp/components" {
     /**
  * @export
  */
-    type IPopoverPosition = "top" | "bottom" | "left" | "right"
     interface IPopoverProps {
         /**
          * title of the popup bubble
@@ -548,7 +719,7 @@ declare module "uxp/components" {
         /**
          * Where the bubble should be positioned relative to the element
          */
-        position?: IPopoverPosition
+        position?: IPosition
     }
     /**
      *
@@ -650,6 +821,52 @@ declare module "uxp/components" {
      */
     export const TitleBar: React.FunctionComponent<IWidgetTitleBarProps>;
 
+    interface ILinkWidgetContainerProps {
+        /**
+         *  Set this to true to make the container visible
+         */
+        show: boolean,
+        /**
+         * Called whenever the container is opened
+         */
+        onOpen?: any,
+        /**
+        * Called when the container gets closed
+        */
+        onClose?: any,
+        /**
+         * The title set in the title bar of the container
+         */
+        title?: any,
+        /**
+         * Any extra css classes to apply
+         */
+        class?: string,
+        /**
+        * Any custom content to include in the container toolbar.
+        */
+        toolbarContent?: any
+    }
+    /**
+     * This is a extended version of modal. this covers the full UI.
+     * main purpose is to create a container for sidebar link widgets
+     * @example
+     * ```
+     *  <button className="btn showcase" onClick={() => setShowLinkWidget(true)}>Click to Show Link Widget Container</button>
+     *
+     *  <LinkWidgetContainer
+     *      show={showLinkWidget}
+     *      onClose={() => setShowLinkWidget(false)}
+     *      title="Link Widget Container"
+     *  >
+     *      content
+     * </LinkWidgetContainer>
+     * ```
+     * @export
+     *
+     */
+    export const LinkWidgetContainer: React.FunctionComponent<ILinkWidgetContainerProps>;
+
     interface IFormFeedbackProps {
         validInput?: boolean,
         className?: string
@@ -670,14 +887,178 @@ declare module "uxp/components" {
      */
     export const FormFeedback: React.FunctionComponent<IFormFeedbackProps>;
 
-    interface ISelectProps {
-        options: IOption[],
-        selected: string,
-        onChange: (value: string) => void,
-        placeholder?: string,
+    interface INotificationProps {
+        /**
+        *  Message to show when showing
+        */
+        message: string,
+        /**
+         * Any extra css classes to apply
+         */
+        class?: string,
+        /**
+         * any extra styles
+         */
+        styles?: any
+    }
+    /**
+     * @example
+     * ```
+     *  <NotificationBlock message="-- End Of Content --" class="end-of-content" />
+     * ```
+     * @export
+     *
+     */
+    export const NotificationBlock: React.FunctionComponent<INotificationProps>;
+
+    interface IDataListProps {
+        /**
+         * List of items to render. This can either be an array of objects or a function that will generate the array of objects.
+         * If you supply a function then pagination will be supported. The function expects 2 parameters - `max` and `last` and returns a promise that will resolve to the list of objects.
+         * `max` specifies the maximum number of items to be returned.
+         */
+        data: Array<any> | IDataFunction,
+
+        /**
+         * A function that will be responsible for rendering each individual element of the list.
+         * It is common to return  `ItemCard` component from here.
+         *
+         * @example
+         *
+         * ```
+         * renderItem={(item,key)=><div>{'Item:' + JSON.stringify(item)}}</div>}
+         * ```
+         *
+         * @example
+         * ```
+         * renderItem={(item,key)=><ItemCard data={item} titleField='Name' />}
+         * ```
+         */
+        renderItem: (item: any, key: number) => JSX.Element,
+
+        /**
+         * The number of items to fetch in each page. This gets passed to the data function as the `max` parameter
+         */
+        pageSize: number,
+
+        args?: any
+
+
+        /**
+         * This function renders a loading animation. If not specified, the default loading animation will be used.
+         */
+        renderLoading?: () => JSX.Element,
+
+        /**
+         * Any extra class names to be added to the component
+         */
+        className?: string
+        /**
+         * show/hide footer (scroll buttons)
+         */
+        showFooter?: boolean,
+        /**
+         * mun of rows to scroll
+         */
+        scrollStep?: number,
+        /**
+         * show/hide end of content message
+         */
+        showEndOfContent?: boolean
+    }
+    /**
+     *
+     * A infinite-scrollable list that supports paging in of items
+     * @export
+     */
+    export const DataList: React.FunctionComponent<IDataListProps>;
+
+    interface ISearchBoxProps {
+        /**
+         * Default value
+         */
+        value: string,
+        /**
+        * This function is called whenever the text changes. The new text value is passed as a parameter
+        */
+        onChange: (newValue: string) => void,
+        /**
+         * Any additional class names to be included for the input field
+         */
         className?: string,
+        /**
+         * show only a icon button when true. When click on the button it will show the actual search box
+         */
+        collapsed?: boolean,
+        /**
+         * position of search box
+         */
+        position?: IPosition,
+        /**
+         * placeholder value
+         */
+        placeholder?: string
+        /**
+         * input will be auto focused if true
+         */
+        autoFocus?: boolean
+    }
+    /**
+     *
+     * @export
+     *
+     * This component is used to render a search box.
+     *
+     * @example
+     * ```
+     *  <SearchBox
+     *      value={inputValue}
+     *      onChange={(newValue) => { setInputValue(newValue) }}
+     *  />
+     * ```
+     *
+     * @example
+     *  <SearchBox
+     *      value={inputValue}
+     *      onChange={(newValue) => { setInputValue(newValue) }}
+     *      collapsed
+     *      position="right"
+     *  />
+     *
+     */
+    export const SearchBox: React.FunctionComponent<ISearchBoxProps>;
+    /**
+ * @export
+ */
+    interface ISelectProps {
+        /**
+         * List of items to select from. Each option has a label which is displayed and a value which is what we actually select.
+         */
+        options: IOption[],
+        /**
+         * The  currently selected value
+         */
+        selected: string,
+
+        /**
+         * Gets called whenever the selection changes. The value parameter has the newly selected value
+         */
+        onChange: (value: string) => void,
+
+        /**
+         * Text to show when no value is selected
+         */
+        placeholder?: string,
+        /**
+         * Any extra css classes to add to the component
+         */
+        className?: string,
+
+        /**
+         * Set this to false to indicate the field doesn't have a valid value
+         */
         isValid?: boolean,
-        inputAttr?: any
+        // inputAttr?: any
     }
     /**
      *
@@ -722,6 +1103,27 @@ declare module "uxp/components" {
      * @export
      *
      * A checkbox component. This can render a true/value value in multiple ways. Set the type property to determine how it looks visually.
+     * types : default, bordered, change-icon, switch-line, switch-box
+     *
+     * @example
+     * ```
+     *  <Checkbox
+     *      checked={checked}
+     *      onChange={(isChecked) => setChecked(isChecked)}
+     *      label='Are you sure'
+     *  />
+     * ```
+     *
+     * @example
+     * ```
+     *  <Checkbox
+     *      checked={checked}
+     *      onChange={(isChecked) => setChecked(isChecked)}
+     *      label='Are you sure'
+     *      type="switch-box"
+     *  />
+     * ```
+     *
      */
     export const Checkbox: React.FunctionComponent<ICheckboxProps>;
 
@@ -775,58 +1177,6 @@ declare module "uxp/components" {
      * @export
      */
     export const PieChartComponent: React.FunctionComponent<IPieChartProps>;
-
-    interface IDataListProps {
-        /**
-         * List of items to render. This can either be an array of objects or a function that will generate the array of objects.
-         * If you supply a function then pagination will be supported. The function expects 2 parameters - `max` and `last` and returns a promise that will resolve to the list of objects.
-         * `max` specifies the maximum number of items to be returned.
-         */
-        data: Array<any> | IDataFunction,
-
-        /**
-         * A function that will be responsible for rendering each individual element of the list.
-         * It is common to return  `ItemCard` component from here.
-         *
-         * @example
-         *
-         * ```
-         * renderItem={(item,key)=><div>{'Item:' + JSON.stringify(item)}}</div>}
-         * ```
-         *
-         * @example
-         * ```
-         * renderItem={(item,key)=><ItemCard data={item} titleField='Name' />}
-         * ```
-         */
-        renderItem: (item: any, key: number) => JSX.Element,
-
-        /**
-         * The number of items to fetch in each page. This gets passed to the data function as the `max` parameter
-         */
-        pageSize: number,
-
-        args?: any
-
-
-        /**
-         * This function renders a loading animation. If not specified, the default loading animation will be used.
-         */
-        renderLoading?: () => JSX.Element,
-
-        /**
-         * Any extra class names to be added to the component
-         */
-        className?: string
-        showFooter?: boolean,
-        scrollStep?: number
-    }
-    /**
-     *
-     * A infinite-scrollable list that supports paging in of items
-     * @export
-     */
-    export const DataList: React.FunctionComponent<IDataListProps>;
 
     interface IItemCardProps {
         /**
@@ -983,6 +1333,72 @@ declare module "uxp/components" {
      */
     export const TrendChartComponent: React.FunctionComponent<ITrendChartProps>;
 
+    interface IDateRangePickerProps {
+        title: string,
+        /**
+         * start date of the range. Either a Date object or an ISO8601 string representation of a date
+         */
+        startDate: string | Date,
+        /**
+         * end date of the range. Either a Date object or an ISO8601 string representation of a date
+         */
+        endDate: string | Date,
+        /**
+         * Callback that gets executed whenever a date range is selected/changed in the date picker
+         */
+        onChange: (newStartDate: Date, newEndDate: Date) => void,
+        /**
+         * Called when the calendar popup is closed
+         */
+        closeOnSelect?: boolean,
+        /**
+         * Set to true to prevent a user from typing in a date
+         */
+        disableInput?: boolean,
+        /**
+        * Additional options to control behavior
+        */
+        options?: {
+            /**
+             * The minimum selectable date. Either a Date object an an ISO8601 date string
+             */
+            minDate?: string | Date,
+
+            /**
+             * The maximum selectable date. Either a Date object an an ISO8601 date string
+             */
+            maxDate?: string | Date,
+
+            /**
+             * If set to `true`, you cannot select a weekend date
+             */
+            disableWeekEnds?: boolean,
+
+            /**
+             * An array of specific dates that the user cannot select
+             */
+            disableDates?: Array<Date | String>
+        }
+    }
+    /**
+     *
+     * @export
+     *
+     * This component is used to select a date range.
+     *
+     * @example
+     * ```
+     *  <DateRangePicker
+     *      startDate={startDate}
+     *      endDate={endDate}
+     *      closeOnSelect
+     *      onChange={(newStart, newEnd) => { setStartDate(newStart); setEndDate(newEnd) }}
+     *  />
+     * ```
+     *
+     */
+    export const DateRangePicker: React.FunctionComponent<IDateRangePickerProps>;
+
     interface IItemListCardProps {
         /** The title to show on the card */
         title: string,
@@ -1048,30 +1464,26 @@ declare module "uxp/components" {
          */
         onClick: () => Promise<any>,
 
-
+        /**
+         * Set button to active state when true
+         */
         active?: boolean,
+        /**
+        * Set button to disabled state when true
+        */
         disabled?: boolean,
+        /**
+         * Text to show when in loading state
+         */
         loadingTitle?: string
     }
     /**
      * This is a button that is meant to be used to execute a async action.
-     * The onClick handler should return a promise. The button's behaviour is to set the status as 'loading...' until the promise that was returned evluates and returns a result or throws an exception.
+     * The onClick handler should return a promise. The button's behavior is to set the status as 'loading...' until the promise that was returned evluates and returns a result or throws an exception.
      * @export
      */
     export const AsyncButton: React.FunctionComponent<IAsyncButtonProps>;
 
-    /**
- * Represents an individual marker
- * @example
- * {latitude:0,longitude:23.2,data:{'name':'FooBar'}}
- * 
- * @export
- */
-    interface IMarker {
-        latitude: number,
-        longitude: number,
-        data?: any
-    }
     /**
      * @exports
      */
@@ -1094,15 +1506,14 @@ declare module "uxp/components" {
         fillColor?: string,
         data?: any
     }
-
     interface IMapComponentProps {
         /**
          * The url of the tile server that will serve up map tiles.
          * This url should have the following placeholders in them:
          * `{x}`, `{y}` and `{z}`
-         * 
+         *
          * `{z}` represents the current zoom level
-         * 
+         *
          * @example
          * ```
          * mapUrl="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -1134,26 +1545,25 @@ declare module "uxp/components" {
         regions?: IRegion[],
         /**
          * this handler will get called when a region is clicked
-         * 
+         *
          */
         onRegionClick?: (event: any, data: any) => void
 
         /**
          * The default zoom level to show on the map
          */
-        zoom?: number
+        zoom?: number,
         /**
-        * this handler will get called when the map is clicked 
-        */
+         * this handler will get called when the map is clicked
+         */
         onClick?: (event: LeafletMouseEvent) => void
     }
-
     /**
      * A map widget that can show a pannable/zoomable map with markers
      * @export
-     * 
+     *
      */
-    const MapComponent: React.FunctionComponent<IMapComponentProps>
+    export const MapComponent: React.FunctionComponent<IMapComponentProps>;
     /**
  * @export
  *
@@ -1180,7 +1590,7 @@ declare module "uxp/components" {
         closeOnSelect?: boolean,
 
         /**
-         * Additional options to control behaviour
+         * Additional options to control behavior
          */
         options?: IDatePickerOptions,
 
@@ -1202,6 +1612,7 @@ declare module "uxp/components" {
      *    title="Date"
      *    date={date}
      *    onChange={(date) => setDate(date)}
+     * />
      * ```
      *
      * @example
@@ -1215,167 +1626,6 @@ declare module "uxp/components" {
      * />
      */
     export const DatePicker: React.FunctionComponent<IDatePickerProps>;
-
-    interface IWizardProps {
-        /**
-         * A list of steps within the wizard.
-         */
-        steps: IWizardStep[];
-
-        /**
-         * What title should be shown on the 'next' button when we reach the last screen
-         */
-        completionTitle?: string;
-
-        /**
-         * This callback is run whenever they hit the final 'completion' action on the last step
-         */
-        onComplete?: () => void;
-    }
-    /**
-     * A wizard-style interface to guide users through a journey.
-     * You can conditionally skip steps and validate steps before proceeding.
-     * @export
-     */
-    export const Wizard: React.FunctionComponent<IWizardProps>;
-    export const useToast: ToastHook;
-
-    interface ILinkWidgetContainerProps {
-        /**
-         *  Set this to true to make the container visible
-         */
-        show: boolean,
-        /**
-         * Called whenever the container is opened
-         */
-        onOpen?: any,
-        /**
-        * Called when the container gets closed
-        */
-        onClose?: any,
-        /**
-         * The title set in the title bar of the container
-         */
-        title?: any,
-        /**
-         * Any extra css classes to apply
-         */
-        class?: string,
-        /**
-        * Any custom content to include in the container toolbar.
-        */
-        toolbarContent?: any
-    }
-
-    /**
-     * This is a extended version of modal. this covers the full UI.
-     * main purpose is to create a container for sidebar link widgets
-     * @example
-     * ```
-     *  <button className="btn showcase" onClick={() => setShowLinkWidget(true)}>Click to Show Link Widget Container</button>
-     * 
-     *  <LinkWidgetContainer
-     *      show={showLinkWidget}
-     *      onClose={() => setShowLinkWidget(false)}
-     *      title="Link Widget Container"
-     *  >
-     *      content
-     * </LinkWidgetContainer>
-     * ```
-     * @export
-     * 
-     */
-    export const LinkWidgetContainer: React.FunctionComponent<ILinkWidgetContainerProps>
-    interface INotificationProps {
-        /**
-        *  Message to show when showing
-        */
-        message: string,
-        /**
-         * Any extra css classes to apply
-         */
-        class?: string
-    }
-
-    /**
-     * @example
-     * ```
-     *  <NotificationBlock message="-- End Of Content --" class="end-of-content" />
-     * ```
-     * @export
-     * 
-     */
-    export const NotificationBlock: React.FunctionComponent<INotificationProps>
-
-
-    interface IDateRangePickerProps {
-        title: string,
-        /**
-         * start date of the range. Either a Date object or an ISO8601 string representation of a date
-         */
-        startDate: string | Date,
-        /**
-         * end date of the range. Either a Date object or an ISO8601 string representation of a date
-         */
-        endDate: string | Date,
-        /**
-         * Callback that gets executed whenever a date range is selected/changed in the date picker
-         */
-        onChange: (newStartDate: Date, newEndDate: Date) => void,
-        /**
-         * Called when the calendar popup is closed
-         */
-        closeOnSelect?: boolean,
-        /**
-         * Set to true to prevent a user from typing in a date
-         */
-        disableInput?: boolean,
-        /**
-        * Additional options to control behavior
-        */
-        options?: {
-            /**
-             * The minimum selectable date. Either a Date object an an ISO8601 date string
-             */
-            minDate?: string | Date,
-
-            /**
-             * The maximum selectable date. Either a Date object an an ISO8601 date string
-             */
-            maxDate?: string | Date,
-
-            /**
-             * If set to `true`, you cannot select a weekend date
-             */
-            disableWeekEnds?: boolean,
-
-            /**
-             * An array of specific dates that the user cannot select
-             */
-            disableDates?: Array<Date | String>
-        }
-    }
-
-    /**
-     * 
-     * @export
-     * 
-     * This component is used to select a date.
-     * 
-     * @example
-     * ```
-     *  <DateRangePicker
-     *      startDate={startDate}
-     *      endDate={endDate}
-     *      closeOnSelect
-     *      onChange={(newStart, newEnd) => { setStartDate(newStart); setEndDate(newEnd) }}
-     *  />
-     * ```
-     * 
-     */
-
-    export const DateRangePicker: React.FunctionComponent<IDateRangePickerProps>
-
 
     interface ITimePickerProps {
         /**
@@ -1395,50 +1645,25 @@ declare module "uxp/components" {
         */
         disableInput?: boolean
     }
-
-    interface ITimeObj {
-        /**
-        * hours in 12h
-        */
-        hours: number,
-        /**
-         * mins
-         */
-        mins: number,
-        /**
-         * secs
-         */
-        secs: number
-        /**
-         * is am or pm
-         */
-        evening: boolean,
-        /**
-         * time string (Ex: 01:10:00 pm)
-         */
-        timeString: string
-    }
-
     /**
-     * 
+     *
      * @export
-     * 
-     * This component is used to select a date.
-     * 
+     *
+     * This component is used to select a time.
+     *
      * @example
      * ```
-     *  <TimePicker 
-     *      title="Time" 
-     *      time={date} 
-     *      onChange={(date) => setDate(date)} 
+     *  <TimePicker
+     *      title="Time"
+     *      time={date}
+     *      onChange={(date) => setDate(date)}
      *  />
      * ```
      */
-    export const TimePicker: React.FunctionComponent<ITimePickerProps>
+    export const TimePicker: React.FunctionComponent<ITimePickerProps>;
 
     interface ITimeRangePickerProps {
-        title: string,
-
+        title: string
         /**
          * Start time . Either a Date object or an time string (Ex: 01:10:00 pm)
          */
@@ -1456,65 +1681,25 @@ declare module "uxp/components" {
        */
         disableInput?: boolean
     }
-
-    interface ITimeObj {
-        /**
-        * hours in 12h
-        */
-        hours: number,
-        /**
-         * mins
-         */
-        mins: number,
-        /**
-         * secs
-         */
-        secs: number
-        /**
-         * is am or pm
-         */
-        evening: boolean,
-        /**
-         * time string (Ex: 01:10:00 pm)
-         */
-        timeString: string,
-        /**
-         * date object
-         */
-        date: Date,
-    }
-
-    interface IRange {
-        /**
-         * from
-         */
-        from: ITimeObj,
-        /**
-         * to
-         */
-        to: ITimeObj
-    }
-
     /**
-     * 
+     *
      * @export
-     * 
-     * This component is used to select a date.
-     * 
+     *
+     * This component is used to select a time range.
+     *
      * @example
      * ```
-     *  <TimeRangePicker 
-     *      startTime={startDate} 
-     *      endTime={endDate} 
-     *      onChange={(s, e) => { setStartDate(s); setEndDate(e) }} 
+     *  <TimeRangePicker
+     *      startTime={startDate}
+     *      endTime={endDate}
+     *      onChange={(s, e) => { setStartDate(s); setEndDate(e) }}
      *  />
      * ```
      */
-    export const TimeRangePicker: React.FunctionComponent<ITimeRangePickerProps>
+    export const TimeRangePicker: React.FunctionComponent<ITimeRangePickerProps>;
 
     interface IDateTimePickerProps {
         title: string,
-
         /**
         * The currently selected datetime. Either a Date object or an ISO8601 string representation of a date
         */
@@ -1553,40 +1738,12 @@ declare module "uxp/components" {
             disableDates?: Array<Date | String>
         }
     }
-
-    interface ITimeObj {
-        /**
-        * hours in 12h
-        */
-        hours: number,
-        /**
-         * mins
-         */
-        mins: number,
-        /**
-         * secs
-         */
-        secs: number
-        /**
-         * is am or pm
-         */
-        evening: boolean,
-        /**
-         * time string (Ex: 01:10:00 pm)
-         */
-        timeString: string,
-        /**
-         * date object
-         */
-        date: Date,
-    }
-
     /**
-     * 
+     *
      * @export
-     * 
-     * This component is used to select a date.
-     * 
+     *
+     * This component is used to select a datetime.
+     *
      * @example
      * ```
      *  <DateTimePicker
@@ -1595,148 +1752,18 @@ declare module "uxp/components" {
      *  />
      * ```
      */
-    export const DateTimePicker: React.FunctionComponent<IDateTimePickerProps>
-
-
-    /**
- * @export
- */
-    type IButtonType = "search" | "close" | "done" | "arrow-up" | "arrow-down" | "arrow-left" | "arrow-right" | "filter";
-
-    /**
-     * @export
-     */
-    type IButtonSize = "large" | "small";
-
-    interface IIConButtonProps {
-        /**
-         * button type
-         */
-        type: IButtonType,
-        /**
-         * Set button to active state when true
-         */
-        active?: boolean,
-        /**
-         * Set button to disabled state when true
-         */
-        disabled?: boolean,
-        /**
-         * The callback that gets invoked when the button is clicked.
-         */
-        onClick?: () => void,
-        /**
-        * Any extra css classes to apply
-        */
-        className?: string,
-        /**
-        * button size
-        */
-        size?: IButtonSize
-    }
-
-    /**
-     * 
-     * @export
-     * 
-     * Default set of buttons with icons
-     * 
-     * @example
-     * ```
-     *  <IconButton type="search" />
-     * ```
-     * 
-     */
-    export const IconButton: React.FunctionComponent<IIConButtonProps>
-
-
-    /**
- * @export
- */
-    type IPosition = "left" | "right";
-
-    interface ISearchBoxProps {
-        /**
-         * Default value
-         */
-        value: string,
-        /**
-        * This function is called whenever the text changes. The new text value is passed as a parameter
-        */
-        onChange: (newValue: string) => void,
-        /**
-         * Any additional class names to be included for the input field
-         */
-        className?: string,
-        /**
-         * show only a icon button when true. When click on the button it will show the actual search box 
-         */
-        collapsed?: boolean,
-        /**
-         * position of search box
-         */
-        position?: IPosition
-    }
-
-    interface ICoords {
-        top?: number,
-        bottom?: number,
-        left?: number,
-        right?: number
-    }
-
-    /**
-     * 
-     * @export
-     * 
-     * This component is used to render a search box.
-     * 
-     * @example
-     * ```
-     *  <SearchBox
-     *      value={inputValue}
-     *      onChange={(newValue) => { setInputValue(newValue) }}
-     *  />
-     * ```
-     * 
-     * @example
-     *  <SearchBox
-     *      value={inputValue}
-     *      onChange={(newValue) => { setInputValue(newValue) }}
-     *      collapsed
-     *      position="right"
-     *  />
-     * 
-     */
-    export const SearchBox: React.FunctionComponent<ISearchBoxProps>
-
-
-    /**
-     * @export
-     */
-    type IDataFunction = (max: number, lastPageToken: string, args?: any) => Promise<{ items: Array<any>, pageToken: string }>
-
-    interface IOption {
-        /**
-         * option label
-         */
-        label: string,
-        /**
-         * option value
-         */
-        value: string
-    }
+    export const DateTimePicker: React.FunctionComponent<IDateTimePickerProps>;
 
     interface IDynamicSelectProps {
         /**
-         * List of options to render. 
+         * List of options to render.
          * This a function that will generate the array of objects.
-         * pagination will be supported. 
+         * pagination will be supported.
          * The function expects 2 parameters - max and last and returns a promise that will resolve to the list of objects. max specifies the maximum number of items to be returned.
          */
         options: IDataFunction,
         /**
-         * selected option value
+         * selected option label
          */
         selected: string,
         /**
@@ -1748,11 +1775,11 @@ declare module "uxp/components" {
          */
         placeholder?: string,
         /**
-         * Any extra css classes to add to the button 
+         * Any extra css classes to add to the button
          */
         className?: string,
         /**
-         * set to valid state if true 
+         * set to valid state if true
          */
         isValid?: boolean,
         /**
@@ -1762,13 +1789,13 @@ declare module "uxp/components" {
         /**
          * A function that will be responsible for rendering each individual option of the list.
          * It is common to return  `ItemCard` component from here.
-         * 
+         *
          * @example
-         * 
+         *
          * ```
          * renderItem={(option,key)=><div>{option.label}</div>}
          * ```
-         * 
+         *
          * @example
          * ```
          * renderItem={(option,key)=><ItemCard data={item} titleField='label' />}
@@ -1787,13 +1814,12 @@ declare module "uxp/components" {
         timeout?: number,
         type?: "search-box" | "select-box"
     }
-
     /**
-     * 
+     *
      * @export
-     * 
+     *
      * This component is used to create a select box with pagination (infinite scrolling) & search/filter options.
-     * Support keyboard interactions 
+     * Support keyboard interactions
      *  - Arrow Keys (up & down) - navigate through options list
      *  - Enter Key - Select current highlighted option
      *  - Escape Key - Exit select mode & discard changes
@@ -1808,9 +1834,9 @@ declare module "uxp/components" {
      *      timeout={500}
      *  />
      * ```
-     * 
+     *
      */
-    export const DynamicSelect: React.FunctionComponent<IDynamicSelectProps>
+    export const DynamicSelect: React.FunctionComponent<IDynamicSelectProps>;
 
     interface IConfirmButtonProps {
         /**
@@ -1824,7 +1850,7 @@ declare module "uxp/components" {
         icon?: string,
 
         /**
-         * Any extra css classes to add to the button 
+         * Any extra css classes to add to the button
          */
         className?: string,
 
@@ -1850,11 +1876,113 @@ declare module "uxp/components" {
         active?: boolean,
         disabled?: boolean
     }
-
     /**
      * This is a confirm button component.
      * @export
      */
-    export const ConfirmButton: React.FunctionComponent<IConfirmButtonProps>
+    export const ConfirmButton: React.FunctionComponent<IConfirmButtonProps>;
 
+    type ITitleFunc = () => JSX.Element
+    interface IDataTableColumn {
+        title: string | ITitleFunc,
+        width: string,
+        renderColumn: (item: any) => JSX.Element
+    }
+    interface IDataTableProps {
+        /**
+         * List of items to render. This can either be an array of objects or a function that will generate the array of objects.
+         * If you supply a function then pagination will be supported. The function expects 2 parameters - `max` and `last` and returns a promise that will resolve to the list of objects.
+         * `max` specifies the maximum number of items to be returned.
+         */
+        data: Array<any> | IDataFunction,
+
+        /**
+         * List of columns to render
+         * column contains three(3) params
+         *  - title : column title. this can be either a string or a function that returns a jsx element
+         *  - width : width of the column. this can a percentage (20%), fixed with (100px) or null
+         *  - renderColumn : content of the column. this is a function that returns a jsx element. this function will take a single argument item type of any
+         *  @example
+         *
+         * ```
+         *  renderColumn={(item,key)=><div>{'Item:' + JSON.stringify(item)}}</div>}
+         * ```
+         * @example
+         *
+         * ```
+         * columns= {[
+         *  {
+         *      title: "Request Id",
+         *      width: "20%",
+         *      render: (item) => <div>{item.requestId} </div>
+         *  },
+         *  {
+         *      title: "User",
+         *      width: "10%",
+         *      render: (item) => <div>{item.user} </div>
+         *  }
+         * ]}
+         * ```
+         */
+        columns: IDataTableColumn[],
+
+        /**
+         * The number of items to fetch in each page. This gets passed to the data function as the `max` parameter
+         */
+        pageSize: number,
+
+        args?: any
+
+        /**
+         * This function renders a loading animation. If not specified, the default loading animation will be used.
+         */
+        renderLoading?: () => JSX.Element,
+
+        /**
+         * Any extra class names to be added to the component
+         */
+        className?: string
+        /**
+         * show/hide footer (scroll buttons)
+         */
+        showFooter?: boolean,
+        /**
+         * mun of rows to scroll
+         */
+        scrollStep?: number,
+        /**
+         * show/hide end of content message
+         */
+        showEndOfContent?: boolean
+    }
+    /**
+     *
+     * A infinite-scrollable list that supports paging in of items
+     * @export
+     */
+    export const DataTable: React.FunctionComponent<IDataTableProps>;
+
+    interface IWizardProps {
+        /**
+         * A list of steps within the wizard.
+         */
+        steps: IWizardStep[];
+
+        /**
+         * What title should be shown on the 'next' button when we reach the last screen
+         */
+        completionTitle?: string;
+
+        /**
+         * This callback is run whenever they hit the final 'completion' action on the last step
+         */
+        onComplete?: () => void;
+    }
+    /**
+     * A wizard-style interface to guide users through a journey.
+     * You can conditionally skip steps and validate steps before proceeding.
+     * @export
+     */
+    export const Wizard: React.FunctionComponent<IWizardProps>;
+    export const useToast: ToastHook; export const useResizeEffect: ResizeEffectHook;
 }
