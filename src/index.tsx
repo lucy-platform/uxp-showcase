@@ -42,6 +42,7 @@ import TrendChartExample from "./components/Charts/TrendChartExample";
 import MapComponentExample from "./components/Maps/MapComponentExample";
 import MapComponentEditExample from "./components/Maps/MapComponentEditExample";
 import DataTableExample from "./components/Lists/DataTableExample";
+import DropDownButtonExample from "./components/Portal/DropDownButtonExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -69,6 +70,11 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
         {
             label: "Popover",
             link: "/popover",
+            section: "portal"
+        },
+        {
+            label: "Dropdown Button",
+            link: "/dropdown-button",
             section: "portal"
         },
         {
@@ -321,6 +327,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/" component={Welcome} />
                         <Route exact path="/tooltip" component={ToolTipExample} />
                         <Route exact path="/popover" component={PopoverExample} />
+                        <Route exact path="/dropdown-button" component={DropDownButtonExample} />
                         <Route exact path="/modal" component={ModalExample} />
                         <Route exact path="/filter-panel" component={FilterPanelExample} />
 
