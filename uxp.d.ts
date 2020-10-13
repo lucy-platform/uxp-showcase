@@ -36,6 +36,7 @@ declare module "uxp/components" {
         disableScroll?: boolean
     }
 
+    type IToastContent = () => JSX.Element
     /**
      * This function is invoked to display a toast (notification popup).
      *
@@ -50,11 +51,12 @@ declare module "uxp/components" {
      *
      */
     export interface IPartialContent {
-        title?: string | HTMLElement,
-        content: string | HTMLElement,
+        icon?: string | IToastContent,
+        title?: string | IToastContent,
+        content: string | IToastContent,
         showCloseBtn?: boolean,
         autoClose?: boolean,
-        onClose?: any,
+        onClose?: () => void,
         closeAfter?: number,
     }
 
@@ -68,6 +70,7 @@ declare module "uxp/components" {
         error: IToast,
         warning: IToast,
         info: IToast,
+        custom: IToast,
         remove: IRemove
     }
 
