@@ -38,7 +38,20 @@
 
         let id = null;
         if(urlParams.has("id")) id = urlParams.get("id")
-        renderUI("root", "6f6e8c4a-0c93-4daf-cddb-4db528cb7147/ui/" + id, "Map Edit");
+        let contextProviderValue = {
+            environment: "dev",
+            userKey: "user_001",
+            root: "root",
+            sidebarItems: () => (window.SidebarLinks || []).map(s => s.id),
+            scriptFiles: [], // widget script files
+            apiKey: 'SC:lucy1:0a54e97781330018',
+            widgetManager: null,
+            reRenderDashboard: null
+        }
+
+        let toolbars = [];
+
+        renderUI(contextProviderValue,"6f6e8c4a-0c93-4daf-cddb-4db528cb7147/ui/" + id, "Map Edit")
     </script>
 
 </body>
