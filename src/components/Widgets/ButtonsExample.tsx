@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AsyncButton, Button, ConfirmButton, FormField, IconButton, Label } from 'uxp/components';
+import { AsyncButton, Button, ConfirmButton, FormField, IconButton, Label, useToast } from 'uxp/components';
 
 interface IProps {
 
@@ -8,6 +8,7 @@ interface IProps {
 const ButtonsExample: React.FunctionComponent<IProps> = (props) => {
     let [buttonLoading, setButtonLoading] = React.useState<boolean>(false)
 
+    let Toast = useToast();
 
     return (<div className="section">
         <h3>Buttons</h3>
@@ -85,15 +86,21 @@ const ButtonsExample: React.FunctionComponent<IProps> = (props) => {
                         icon="https://static.iviva.com/images/Adani_UXP/QR_badge_icon.svg"
                     />
                 </FormField>
-
-                <FormField inline>
+            </div>
+            <div className="example flex-row" >
+                <FormField inline >
                     <Label>Confirm Button </Label>
                     <ConfirmButton
                         title="Delete Item"
                         // icon="https://static.iviva.com/images/Adani_UXP/QR_badge_icon.svg"
                         loading={buttonLoading}
-                        onConfirm={() => alert("confirmed")}
-                        onCancel={() => alert("canceled")}
+                        onConfirm={() => new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                Toast.success("Deleted")
+                                resolve();
+                            }, 2000);
+                        })}
+                        onCancel={() => Toast.info("Cancelled")}
 
                     />
                 </FormField>
