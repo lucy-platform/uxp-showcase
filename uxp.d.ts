@@ -909,7 +909,7 @@ declare module "uxp/components" {
          * color of the markers
          * default is white
          */
-        markersColor?: string,
+        tickColor?: string,
         /**
          * class name(s) for additional styling
          */

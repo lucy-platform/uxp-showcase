@@ -12,9 +12,9 @@ const RadialGaugeExample: React.FunctionComponent<IProps> = (props) => {
     let [val, setVal] = React.useState(0)
 
     React.useEffect(() => {
-        setInterval(() => {
-            setVal(getRandomArbitrary(min, max))
-        }, 2000)
+        // setInterval(() => {
+        //     setVal(getRandomArbitrary(min, max))
+        // }, 2000)
     }, [])
 
     function getRandomArbitrary(min: number, max: number) {
@@ -35,7 +35,7 @@ const RadialGaugeExample: React.FunctionComponent<IProps> = (props) => {
                     max={max}
                     label={() => <>Radial Gauge</>}
                     legend={true}
-                    markersColor={"white"}
+                    tickColor={"white"}
                     colors={[
                         { color: 'blue', stopAt: 25 },
                         { color: 'green', stopAt: 50 },
