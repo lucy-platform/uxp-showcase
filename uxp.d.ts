@@ -906,7 +906,7 @@ declare module "uxp/components" {
          */
         legend?: boolean,
         /**
-         * color of the markers
+         * color of the ticks
          * default is white
          */
         tickColor?: string,
@@ -918,6 +918,12 @@ declare module "uxp/components" {
          * additional inline styles
          */
         styles?: React.CSSProperties
+    
+        /**
+         * if true show gradient colors
+         * default is false
+         */
+        gradient?: boolean
     }
         
     /**
@@ -3170,10 +3176,10 @@ declare module "uxp/components" {
          */
         legend?: boolean,
         /**
-         * color of the markers
+         * color of the ticks
          * default is white
          */
-        markersColor?: string,
+        tickColor?: string,
         /**
          * class name(s) for additional styling
          */
@@ -3182,6 +3188,12 @@ declare module "uxp/components" {
          * additional inline styles
          */
         styles?: React.CSSProperties
+    
+        /**
+         * if true show gradient colors
+         * default is false
+         */
+        gradient?: boolean
     }
     /**
      *
@@ -3197,7 +3209,8 @@ declare module "uxp/components" {
      *      min={0}
      *      max={100}
      *      label={() => <>Equipment Heat</>}
-     *      legend+{true}
+     *      legend={true}
+     *      gradient={true}
      *  />
      * ```
      */
