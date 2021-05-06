@@ -3193,7 +3193,11 @@ declare module "uxp/components" {
          * if true show gradient colors
          * default is false
          */
-        gradient?: boolean
+        gradient?: boolean,
+         thickness?: number
+         
+    largeTick?: number,
+    smallTick?: number
     }
     /**
      *
