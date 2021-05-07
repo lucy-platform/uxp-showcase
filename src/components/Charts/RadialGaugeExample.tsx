@@ -20,7 +20,7 @@ const RadialGaugeExample: React.FunctionComponent<IProps> = (props) => {
     let [gradient, setGradient] = React.useState(false)
     let [legend, setLegend] = React.useState(true)
 
-    let [col1, setCol1] = React.useState("blue")
+    let [col1, setCol1] = React.useState("cyan")
     let [col1Stop, setCol1Stop] = React.useState(0.25 * (max - min) + min)
     let [col2, setCol2] = React.useState("green")
     let [col2Stop, setCol2Stop] = React.useState(0.5 * (max - min) + min)
@@ -175,7 +175,7 @@ const RadialGaugeExample: React.FunctionComponent<IProps> = (props) => {
                         <FormField>
                             <Label>largeTick</Label>
                             <InputRange
-                                minValue={0}
+                                minValue={1}
                                 maxValue={6}
                                 value={largeTick}
                                 onChange={(s: number) => setLargeTick(s)}
@@ -189,7 +189,7 @@ const RadialGaugeExample: React.FunctionComponent<IProps> = (props) => {
                         <FormField>
                             <Label>smallTick</Label>
                             <InputRange
-                                minValue={0}
+                                minValue={1}
                                 maxValue={3}
                                 value={smallTick}
                                 onChange={(s: number) => setSmallTick(s)}
