@@ -56,6 +56,16 @@ const RadialGaugeExample: React.FunctionComponent<IProps> = (props) => {
         setCol2Stop(0.5 * (max - min) + min)
         setCol3Stop(0.75 * (max - min) + min)
         setCol4Stop(max)
+
+        if (min > max) {
+            let _max = min
+            let _min = max
+            setMin(_min)
+            setMax(_max)
+        }
+        else if(min == max) {
+            setMax(prev => (prev + 1))
+        }
     }, [min, max])
 
     React.useEffect(() => {
@@ -287,7 +297,7 @@ const RadialGaugeExample: React.FunctionComponent<IProps> = (props) => {
                     <div>
                         <FormField>
                             <Label>Color 4</Label>
-                            <Input value={col1} onChange={setCol4} />
+                            <Input value={col4} onChange={setCol4} />
                         </FormField>
                     </div>
 
