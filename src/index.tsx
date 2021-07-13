@@ -43,6 +43,7 @@ import MapComponentExample from "./components/Maps/MapComponentExample";
 import MapComponentEditExample from "./components/Maps/MapComponentEditExample";
 import DataTableExample from "./components/Lists/DataTableExample";
 import DropDownButtonExample from "./components/Portal/DropDownButtonExample";
+import RadialGaugeExample from "./components/Charts/RadialGaugeExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -242,6 +243,11 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
             link: "/Trend-chart",
             section: "charts"
         },
+        {
+            label: "Radial Gauge",
+            link: "/radial-gauge",
+            section: "charts"
+        },
 
         // maps 
         {
@@ -369,6 +375,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         {/* charts */}
                         <Route exact path="/pie-chart" component={PieChartExample} />
                         <Route exact path="/trend-chart" component={TrendChartExample} />
+                        <Route exact path="/radial-gauge" component={RadialGaugeExample} />
 
                         {/* map */}
                         <Route exact path="/map-component" component={MapComponentExample} />
