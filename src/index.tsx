@@ -44,6 +44,7 @@ import MapComponentEditExample from "./components/Maps/MapComponentEditExample";
 import DataTableExample from "./components/Lists/DataTableExample";
 import DropDownButtonExample from "./components/Portal/DropDownButtonExample";
 import RadialGaugeExample from "./components/Charts/RadialGaugeExample";
+import PreLoadersExample from "./components/Widgets/PreLoadersExample";
 
 interface IUxp_showcaseProps {
     uxpContext?: IContextProvider
@@ -187,6 +188,11 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
         {
             label: "Loading Block",
             link: "/loading-block",
+            section: "widgets"
+        },
+        {
+            label: "Pre Loaders",
+            link: "/pre-loaders",
             section: "widgets"
         },
         {
@@ -361,6 +367,7 @@ const UXPShowcase: React.FunctionComponent<IUxp_showcaseProps> = (props) => {
                         <Route exact path="/link-widget-container" component={LinkWidgetContainerExample} />
                         <Route exact path="/title-bar" component={TitleBarExample} />
                         <Route exact path="/loading-block" component={LoadingBlockExample} />
+                        <Route exact path="/pre-loaders" component={PreLoadersExample} />
                         <Route exact path="/notification-block" component={NotificationBlockExample} />
                         <Route exact path="/profile-image" component={ProfileImageExample} />
                         <Route exact path="/item-card" component={ItemCardExample} />
