@@ -96,7 +96,7 @@ const RadialGaugeExample: React.FunctionComponent<IProps> = (props) => {
 
             <div className="example" style={{ width: 400, height: 600, padding: 20, flexGrow: 0, flexShrink: 0 }}>
                 <RadialGauge
-                    margin={10}
+                    // margin={10}
                     value={val}
                     min={min}
                     max={max}
